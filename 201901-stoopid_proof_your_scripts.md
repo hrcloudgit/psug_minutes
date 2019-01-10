@@ -1,5 +1,6 @@
 Stoopid Proof your Powershell Scripts
 ========================
+Dave Stein
 
 ### Introductions
   * Steve Correia
@@ -45,4 +46,11 @@ Stoopid Proof your Powershell Scripts
    [Demo]
 - Modular Coding
    [Demo]
-- 
+- Conclusion
+  * Be clear and consistent
+  * Assume the worst
+  * Explain the problem
+  * Protect against mistakes and failures
+  * Think ahead
+  
+  
