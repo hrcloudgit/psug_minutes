@@ -7,8 +7,8 @@ Dave Stein
   * Dave Stein
   * Anthony Brown
   * Jeremy Scicchitano
-  *
-  *
+  * Jim 
+  * Dennis
 
 ### Stoopid Proof your Powershell Scripts
   
