@@ -1,6 +1,6 @@
-$servers = ('cm02','fs01','dc01')
+``` $servers = ('cm02','fs01','dc01')```
 
-# using foreach...
+# Using _foreach_
 
 foreach ($server in $servers) {
     Write-Host "checking $server"
