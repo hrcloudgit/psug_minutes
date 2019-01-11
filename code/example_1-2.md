@@ -43,6 +43,10 @@ function Set-UserProfileLink {
     Write-Host "Profile: $ProfilePath"
 }
 ```
+### concerns
+    1. still no online help or explanation for each parameter
+    2. still no real constraints on data inputs
+    3. no leveraging of environment to provide default values
 
 ## Example 3: Even mo-better
 
@@ -66,6 +70,9 @@ function Set-UserProfileLink {
 }
 ```
 
+### concerns:
+    1. still no documentation or online help
+    
 ## Example 4: Even mo-better better
 
 ```powershell 
