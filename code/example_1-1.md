@@ -1,27 +1,24 @@
-﻿# 1.1 - making things clearer
+# 1.1 - Making Things Clearer
 
-### self-describing elements: filenames
+## Self-describing elements: filenames
 
-Get-CADFileSizes.ps1
+```Get-CADFileSizes.ps1```
 
+## Self-describing elements: functions
 
-### self-describing elements: functions
+```function Get-IniFiles {}```
 
-function Get-IniFiles {}
+## Self-describing elements: variable names
 
+```$LocalUserNames = @()```
 
-### self-describing elements: variable names
+## Self-describing elements: variable values
 
-$LocalUserNames = @()
+```$EmployeeTypes = @('FullTime','PartTime','Temp','Contractor')```
 
+## Documentation: files and functions
 
-### self-describing elements: variable values
-
-$EmployeeTypes = @('FullTime','PartTime','Temp','Contractor')
-
-
-### documentation: files and functions
-
+```
 <#
 .SYNOPSIS
 Get AutoCAD Data File sizes
@@ -32,12 +29,12 @@ Return AutoCAD data file names, and sizes from a specified path
 .PARAMETER FolderPath
 Folder path to search
 #>
+```
 
+## Documentation: code blocks
 
-
-### documentation: code blocks
-
-# assign groupcode by checking category name
+```
+# Assign groupcode by checking category name
 
 switch ($CategoryName) {
     'Yellow' {
@@ -56,3 +53,4 @@ switch ($CategoryName) {
         break;
     }
 } # switch
+```
