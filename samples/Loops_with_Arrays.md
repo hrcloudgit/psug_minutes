@@ -14,7 +14,19 @@ foreach ($server in $servers) {
     # ...
 }
 ```
-Comment: Allows for more granular error checking per line. To exit early, use ```break```
+Comment: May allow for more granular error checking per line, but not always. Just a different option from pipeline iteration (see below). To exit early, use ```break```
+
+```powershell
+foreach ($server in $servers) {
+    Write-Host "checking $server"
+    try {
+        $files = Get-ChildItem -Path "\\$server\docs" -Filter "*.docx" -ErrorAction Stop
+    }
+    catch {
+        Write-Error $Error[0].Exception.Message
+    }
+}
+```
 
 ## Using _pipeline iteration_
 
@@ -25,6 +37,18 @@ $servers | ForEach-Object {
 }
 ```
 Comment: Often more compact and efficient processing. To exit early, use ```break```
+
+```powershell
+$servers | ForEach-Object {
+    Write-Host "checking $_"
+    try {
+        ...
+    }
+    catch {
+        ...
+    }
+}
+```
 
 ## Using _for_
 
