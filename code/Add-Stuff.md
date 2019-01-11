@@ -15,6 +15,7 @@ function Add-Stuff {
 function Add-Stuff {
     param (
         [parameter(Mandatory=$True)]
+        [ValidateRange(2,100)]
         [int] $Number1,
         [parameter(Mandatory=$True)]
         [ValidateSet(1,5,10)]
