@@ -1,7 +1,8 @@
-﻿# 1.5 - modular coding
+# 1.5 - Modular (Reusable) Coding
 
-### inline mess of code
+## Example 1 - Inline mess of code
 
+```powershell
 # form a SOAP request for an authentication session token
 
 $SOAPurl = "https://www.contoso.local/services/fubar/v2/users.svc"
@@ -57,13 +58,13 @@ else {
     Write-Warning "no users were found"
     break
 }
+```
 
-### --------------------------------------------------------------------------------
-## FIRST REFACTOR
-##
-## refactor into functions, so we can move them to a separate file to make
-## the processing script less cluttered and easier to read
+## Example 2 - Refactored (first iteration)
 
+   * Refactor into functions, so we can move them to a separate file to make the processing script less cluttered and easier to read
+
+```powershell
 function Get-SessionID {
     param()
     try {
@@ -127,21 +128,23 @@ xmlns:tem="http://temp.org/" xmlns:mes="http://contoso.local/services/MessagesAP
         Write-Error "Error: $($Error[0].Exception.Message)"
     }
 }
+```
 
-# now the main script could look like this...
+### Now the main script could look like this...
 
+```powershell
 if ($SessionID = Get-SessionID -UserName $apiUser -Password $apiPwd) {
     $allUsers = Get-ApiUsers -SID $SessionID -Group $BaseGroupID
 }
+```
 
+## Example 3 - Refactored (2nd iteration)
 
-### --------------------------------------------------------------------------------
-## SECOND REFACTOR
-##
-## further, you may find that many other tasks besides "Get-ContosoUsers" require the same SOAP URI or
-## the same XML template.  Rather than repeat the same bulky lines of code, you can move them into 
-## functions and request them as needed...
+   * further, you may find that many other tasks besides "Get-ContosoUsers" require the same SOAP URI or
+     the same XML template.  Rather than repeat the same bulky lines of code, you can move them into 
+     functions and request them as needed...
 
+```powershell
 function Get-ApiURL {
     param (
         [parameter(Mandatory=$True, HelpMessage="Base name of SOAP service group")]
@@ -248,3 +251,4 @@ function Disable-Users {...}
 function Enable-Users {...}
 
 function Add-User {...}
+```
