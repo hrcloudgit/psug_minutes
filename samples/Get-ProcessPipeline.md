@@ -1,19 +1,8 @@
 ## Get-ProcessPipeline
 
-### Before (basic code)
-
-```powershell
-$procs = Get-Process | Sort -ProcessName -Descending
-foreach ($p in $procs) {
-    if ($p.ProcessName -like "A*")
-        $p
-    }
-}
-```
-
 ### Structure
 
-#### Get >> FILTER >> SORT >> SELECT
+#### GET-OBJECT >> FILTER >> SORT >> SELECT (>> ... >> ...)
 
 ### After (converted into a pipeline)
 
@@ -21,5 +10,5 @@ foreach ($p in $procs) {
 Get-Process | 
     Where-Object {$_.ProcessName -like "A*"} | 
         Sort-Object ProcessName -Descending | 
-            Select -First 3
+            Select -First 5
 ```
