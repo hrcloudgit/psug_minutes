@@ -3,10 +3,17 @@
 ### Before (basic code)
 
 ```powershell
-$procs = Get-Process
-$procs = $procs | Where-Object {$_.ProcessName -like "A*"}
-$procs = $procs | Sort-Object ProcessName -Descending
+$procs = Get-Process | Sort -ProcessName -Descending
+foreach ($p in $procs) {
+    if ($p.ProcessName -like "A*")
+        $p
+    }
+}
 ```
+
+### Structure
+
+#### Get >> FILTER >> SORT >> SELECT
 
 ### After (converted into a pipeline)
 
