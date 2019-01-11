@@ -2,15 +2,21 @@
 
 ## Self-describing elements: filenames
 
-```Get-CADFileSizes.ps1```
+```powershell 
+Get-CADFileSizes.ps1
+```
 
 ## Self-describing elements: functions
 
-```function Get-IniFiles {}```
+```powershell 
+function Get-IniFiles {}
+```
 
 ## Self-describing elements: variable names
 
-```$LocalUserNames = @()```
+```powershell 
+$LocalUserNames = @()
+```
 
 ## Self-describing elements: variable values
 
@@ -18,7 +24,7 @@
 
 ## Documentation: files and functions
 
-```
+```powershell 
 <#
 .SYNOPSIS
 Get AutoCAD Data File sizes
@@ -33,7 +39,7 @@ Folder path to search
 
 ## Documentation: code blocks
 
-```
+```powershell 
 # Assign groupcode by checking category name
 
 switch ($CategoryName) {
