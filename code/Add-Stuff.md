@@ -24,3 +24,11 @@ function Add-Stuff {
     $Number1 + $Number2
 }
 ```
+
+## Examples
+
+```powershell
+Add-Stuff -Number1 1 -Number2 5
+
+# throws an error because [Number1] is out of the allowed range (2-100)
+```
