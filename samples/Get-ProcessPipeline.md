@@ -2,6 +2,8 @@
 
 ### Structure
 
+The following is pseudo-code where ">>" denotes a "pipe into" or "|"
+
 #### GET-OBJECT >> FILTER >> SORT >> SELECT (>> ... >> ...)
 
 ### After (converted into a pipeline)
