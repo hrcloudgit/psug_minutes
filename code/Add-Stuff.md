@@ -31,4 +31,12 @@ function Add-Stuff {
 Add-Stuff -Number1 1 -Number2 5
 
 # throws an error because [Number1] is out of the allowed range (2-100)
+
+Add-Stuff : Cannot validate argument on parameter 'Number1'. The 1 argument is less than the minimum allowed range of 2. Supply an argument that is greater than or equal to 2 and then try the command again.
+At line:1 char:20
++ Add-Stuff -Number1 1 -Number2 5
++                    ~
+    + CategoryInfo          : InvalidData: (:) [Add-Stuff], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationError,Add-Stuff
+
 ```
