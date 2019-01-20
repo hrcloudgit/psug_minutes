@@ -21,9 +21,9 @@ Parameters are moved into a "splatted" hash table...
 
 ```powershell
 $params = @{
-  LogName = "System"
-  Newest  = 100
-  EntryType = "Error"
+  LogName      = "System"
+  Newest       = 100
+  EntryType    = "Error"
   ComputerName = "server123"
 }
 
