@@ -42,3 +42,16 @@ At line:1 char:20
     + FullyQualifiedErrorId : ParameterArgumentValidationError,Add-Stuff
 
 ```
+
+```powershell
+Add-Stuff -Number1 2 -Number2 51
+
+Add-Stuff : Cannot validate argument on parameter 'Number2'. 
+The argument "51" does not belong to the set "1,5,10" specified by the ValidateSet attribute. 
+Supply an argument that is in the set and then try the command again.
+At line:1 char:31
++ Add-Stuff -Number1 2 -Number2 51
++                               ~~
+    + CategoryInfo          : InvalidData: (:) [Add-Stuff], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationError,Add-Stuff
+```
