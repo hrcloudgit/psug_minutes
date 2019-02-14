@@ -86,7 +86,7 @@ Publish-Module -Path _full-path-psd1-file_ -NuGetApiKey _apikey_
 Publish-Module -Path "c:\scripts\TestModule\HRPSUG1.psd1" -NuGetApiKey "12345678-abcd-defg-1234-abcd1234defg"
 ```
 
-*Note:* Remember that once a module has been published, any changes/updates to the module require you to update
+Note: Remember that once a module has been published, any changes/updates to the module require you to update
 the ModuleVersion property in the .psd1 file before re-publishing.  For example, if current published version is 1.0, 
 then change to 1.0.1 or 1.1 before publishing the updated content.
 
