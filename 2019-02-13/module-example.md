@@ -99,12 +99,16 @@ Publish-Module -Path _full-path-psd1-file_ -NuGetApiKey _apikey_
 
 # example...
 
-Publish-Module -Path "c:\scripts\TestModule\HRPSUG1.psd1" -NuGetApiKey "12345678-abcd-defg-1234-abcd1234defg"
+Publish-Module -Path "c:\scripts\HRPSUG1\HRPSUG1.psd1" -NuGetApiKey "12345678-abcd-defg-1234-abcd1234defg"
 ```
 
-Note: Remember that once a module has been published, any changes/updates to the module require you to update
+## Notes
+
+* Remember that once a module has been published, any changes/updates to the module require you to update
 the ModuleVersion property in the .psd1 file before re-publishing.  For example, if current published version is 1.0, 
 then change to 1.0.1 or 1.1 before publishing the updated content.
 
-Note: During testing of module changes, be sure to re-import with -Force to insure you have the latest-saved version 
+* During testing of module changes, be sure to re-import with -Force to insure you have the latest-saved version 
 running in memory.
+
+* It's usually recommended to logically group module functions with a common prefix to avoid conflicts with other module functions, identify them more easily, and find/filter them.  For example "Write-Stuff" or "Write-HrPsStuff" for module "HRPSUG1"
