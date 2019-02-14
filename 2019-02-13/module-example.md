@@ -111,4 +111,4 @@ then change to 1.0.1 or 1.1 before publishing the updated content.
 * During testing of module changes, be sure to re-import with -Force to insure you have the latest-saved version 
 running in memory.
 
-* It's usually recommended to logically group module functions with a common prefix to avoid conflicts with other module functions, identify them more easily, and find/filter them.  For example "Write-Stuff" or "Write-HrPsStuff" for module "HRPSUG1"
+* It's usually recommended to logically group module functions with a common prefix to avoid conflicts with other module functions, identify them more easily, and find/filter them.  For example "Write-Stuff" or "Write-HrPsStuff" for module "HRPSUG1".  A good example of this is with module "dbatools".  Use ```Get-Command -Module dbatools``` to review the function names.
