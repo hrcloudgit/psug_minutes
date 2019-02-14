@@ -2,16 +2,16 @@
 
 ## Process Outline
 
-  1. Created a folder path (e.g. c:\scripts\TestModule)
-  2. Created a file named "TestModule.psm1" in the above path
-  3. Created a file named "Get-MyTestModule.ps1" in the same path
-  4. Created the module manifest "TestModule.psd1" in the same path
+  1. Created a folder path (e.g. c:\scripts\HRPSUG1)
+  2. Created a file named "HRPSUG1.psm1" in the above path
+  3. Created a file named "Write-Stuff.ps1" in the same path
+  4. Created the module manifest "HRPSUG1.psd1" in the same path
   5. Import the module to test and validate
   6. Publish the module to the PowerShell Gallery
   
 ## Files
 
-### TestModule.psm1
+### HRPSUG1.psm1
 
 ```powershell
 try {
@@ -22,7 +22,7 @@ catch {
 }
 ```
 
-### Get-MyTestModule.ps1
+### Write-Stuff.ps1
 
 ```powershell
 <#
@@ -31,24 +31,24 @@ catch {
 .PARAMETER Arg1
  Sample string data input, must be 3 characters in length
 .EXAMPLE
-  Get-MyTestModule -Arg1 "ABC"
-  _prints "foo: ABC"_
+ Write-Stuff -Arg1 "ABC"
+ _prints "foo: ABC"_
 #>
 
-function Get-MyTestModule {
+function Write-Stuff {
 	param (
 		[parameter(Mandatory=$True)]
 		[ValidateLength(3,3)]
 		[string] $Arg1
 	)
-	Write-Host "foo: $Arg1"
+	Write-Output "writing: $Arg1"
 }
 ```
 
 ### Create Manifest
 
 ```powershell
-New-ModuleManifest -Path "c:\scripts\TestModule\TestModule.psd1"
+New-ModuleManifest -Path "c:\scripts\TestModule\HRPSUG1.psd1"
 ```
 
 (Edit the .psd1 file to fill-in missing properties)
@@ -58,9 +58,9 @@ New-ModuleManifest -Path "c:\scripts\TestModule\TestModule.psd1"
 Import the module and make sure the commands work as expected.  Use the Get-Command -Module _ModuleName_.  Invoke the functions in your module and make sure they do what you want them to.
 
 ```powershell
-Import-Module "c:\scripts\TestModule\TestModule.psd1"
+Import-Module "c:\scripts\TestModule\HRPSUG1.psd1"
 
-Get-MyTestModule -Arg1 "FOO"
+Write-Stuff -Arg1 "FOO"
 ```
 
 ## Publishing a Module
@@ -83,10 +83,10 @@ Publish-Module -Path _full-path-psd1-file_ -NuGetApiKey _apikey_
 
 # example...
 
-Publish-Module -Path "c:\scripts\TestModule\TestModule.psd1" -NuGetApiKey "12345678-abcd-defg-1234-abcd1234defg"
+Publish-Module -Path "c:\scripts\TestModule\HRPSUG1.psd1" -NuGetApiKey "12345678-abcd-defg-1234-abcd1234defg"
 ```
 
-Note: Remember that once a module has been published, any changes/updates to the module require you to update
+*Note:* Remember that once a module has been published, any changes/updates to the module require you to update
 the ModuleVersion property in the .psd1 file before re-publishing.  For example, if current published version is 1.0, 
 then change to 1.0.1 or 1.1 before publishing the updated content.
 
