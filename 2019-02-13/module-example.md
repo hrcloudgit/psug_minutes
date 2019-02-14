@@ -13,6 +13,8 @@
 
 ### HRPSUG1.psm1
 
+Paste the following into the file and save it.
+
 ```powershell
 try {
 	Get-ChildItem -Path $PSScriptRoot -Filter "*.ps1" -Recurse -ErrorAction Stop | %{ . $_.FullName }
@@ -23,6 +25,8 @@ catch {
 ```
 
 ### Write-Stuff.ps1
+
+Paste the following into the file and save it.
 
 ```powershell
 <#
@@ -47,8 +51,10 @@ function Write-Stuff {
 
 ### Create Manifest
 
+Open a PowerShell console (or ISE or VS Code) and run the following statement.
+
 ```powershell
-New-ModuleManifest -Path "c:\scripts\TestModule\HRPSUG1.psd1"
+New-ModuleManifest -Path "c:\scripts\HRPSUG1\HRPSUG1.psd1"
 ```
 
 (Edit the .psd1 file to fill-in missing properties)
@@ -58,7 +64,7 @@ New-ModuleManifest -Path "c:\scripts\TestModule\HRPSUG1.psd1"
 Import the module and make sure the commands work as expected.  Use the Get-Command -Module _ModuleName_.  Invoke the functions in your module and make sure they do what you want them to.
 
 ```powershell
-Import-Module "c:\scripts\TestModule\HRPSUG1.psd1"
+Import-Module "c:\scripts\HRPSUG1\HRPSUG1.psd1"
 
 Write-Stuff -Arg1 "FOO"
 ```
