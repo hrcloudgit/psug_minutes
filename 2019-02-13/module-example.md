@@ -62,7 +62,6 @@ New-ModuleManifest -Path "c:\scripts\HRPSUG1\HRPSUG1.psd1"
 * Open the HRPSUG1.psd1 file in a text editor (Notepad, Notepad++, PowerShell ISE, VS Code, etc.)
 * Change **Version** to 1.0, **Author** to your name, **CompanyName**, **Copyright**, etc.
 * Remove the # prefix for PowerShellVersion and insert 3.0 between the empty quotes (e.g. PowerShellVersion = '3.0')
-* Modify RequiredModules to: RequiredModules = @('dbatools')
 * Scroll further down and modify the **Tags** list to remove the # prefix and insert ('hrpsug','sample')
 * Save the PSD1 file
 
