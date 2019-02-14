@@ -53,3 +53,22 @@ New-ModuleManifest -Path "c:\scripts\TestModule\TestModule.psd1"
 
 (Edit the .psd1 file to fill-in missing properties)
 
+### Test the Module
+```powershell
+Import-Module "c:\scripts\TestModule\TestModule.psd1"
+
+Get-MyTestModule -Arg1 "FOO"
+```
+
+### Publish the Module
+
+```powershell
+Publish-Module -Path "c:\scripts\TestModule\TestModule.psd1" -NuGetApiKey "<yourkey>"
+```
+
+Note: Remember that once a module has been published, any changes/updates to the module require you to update
+the ModuleVersion property in the .psd1 file before re-publishing.  For example, if current published version is 1.0, 
+then change to 1.0.1 or 1.1 before publishing the updated content.
+
+Note: During testing of module changes, be sure to re-import with -Force to insure you have the latest-saved version 
+running in memory.
