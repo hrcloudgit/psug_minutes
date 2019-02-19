@@ -16,7 +16,9 @@ This is pseudo-code, provided as a general roadmap or outline of the steps requi
 For this exercise, functions will be used to group code into reusable units, with a central "control script" that will invoke the functions, to complete the tasks in the order above.  All of the following functions can be entered and saved into a single file.
 
 **1. Open PowerShell ISE or Visual Studio Code**
-**2. Create a new File and save it as **Invoke-ADCleanup.ps1**
+
+**2. Create a new File and save it as "Invoke-ADCleanup.ps1"**
+
 **3. Enter the following code into the file and save it.**
 
 ```powershell
@@ -65,7 +67,9 @@ Get-AdsAccounts -AccountType user
 ```
 Review the output and notice the property names and values that are returned.  The _LogonAge_ value indicates the number of days since the _LastLogon_ value occurred.
 
-**5. Repeat the function call, but append the following filter before you execute it...**
+**5. Repeat the function call, but...**
+
+This time, append the following filter before you execute it...**
 
 ```powershell
 Get-AdsAccounts -AccountType user | ?{$_.LogonAge -gt 30}
@@ -81,13 +85,32 @@ Now ```$test``` holds a reference to the first account in the dataset.  If you t
 **6. Moving an account to a different OU**
 
 ```powershell
+TBD
 ```
 
-**7. Disable an account
+**7. Disable an account**
 
-**8. Modify an account description
+```powershell
+TBD
+```
 
-**9. Update a log file
+**8. Modify an account description**
+
+```powershell
+TBD
+```
+
+**9. Update a log file**
+
+```powershell
+TBD
+```
+
+**10. Putting it all together**
+
+```powershell
+TBD
+```
 
 ## Summary
 
