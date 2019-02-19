@@ -2,149 +2,118 @@
 
 This is pseudo-code, provided as a general roadmap or outline of the steps required to complete this exercise.
 
-```
-1. Get all accounts where LastLogon > 90 days
-2. Foreach account:**
-   * Move account to the "graveyard" OU
-   * Disable the account
-   * Modify the account description
-   * Update the log file
+## Workflow Outline
+
+Copy the following block of code comments to the Clipboard.  You will paste it into the script file to use as a roadmap for filling in the code to make this all work.
+
+```powershell
+[CmdletBinding(SupportsShouldProcess=$True)]
+param (
+    [string] $ou = "OU=Graveyard,DC=contoso,DC=local",
+    [string] $logfile = "adcleanup.log",
+    [int] $maxage = 90
+)
+
+<# functions #>
+# --- insert functions here ---
+
+<# workflow #>
+
 ```
 
-## Functions and Script Files
+## Building the Script File
 
 For this exercise, functions will be used to group code into reusable units, with a central "control script" that will invoke the functions, to complete the tasks in the order above.  All of the following functions can be entered and saved into a single file.
 
-**1. Open PowerShell ISE or Visual Studio Code**
+1. Open PowerShell ISE or Visual Studio Code
 
-**2. Create a new File and save it as "Invoke-ADCleanup.ps1"**
+2. Create a new File and save it as "Invoke-ADCleanup.ps1"
 
-**3. Enter the following code into the file and save it.**
+3. Copy the Workflow Outline above into the script file.  Edit the $ou path to suit your test environment.  Save the file.
 
-```powershell
-function Get-AdsAccounts {
-    [CmdletBinding()]
-    param (
-        [parameter(Mandatory=$True)]
-        [ValidateSet('computer','user')]
-        [string] $AccountType
-    )
-    try {
-        $as = [adsisearcher]"(objectCategory=$AccountType)"
-        $props = @("name","distinguishedName","lastLogonTimeStamp")
-        $props | %{ $as.PropertiesToLoad.Add($_) | Out-Null }
-        $as.PageSize = 2000
-        $accounts = $as.FindAll()
-        foreach ($account in $accounts) {
-            $name = ($account.Properties.item('name') | Out-String).Trim()
-            $dn   = ($account.Properties.item('distinguishedName') | Out-String).Trim()
-            $lts  = ($account.Properties.item('lastLogonTimeStamp') | Out-String).Trim()
-            $lts  = ([datetime]::FromFileTime($lts))
-            $age  = (New-TimeSpan -Start (Get-Date $lts) -End (Get-Date)).Days
-            $params = [ordered]@{
-                Name      = $name
-                Type      = $AccountType
-                LastLogon = $lts
-                LogonAge  = $age
-                DN        = $dn
-            }
-            New-Object PSObject -Property $params
-        }
-    }
-    catch {
-        Write-Error $Error[0].Exception.Message
-    }
-}
+4. Copy and paste the function **Get-AdsAccounts** into the script file just below the <# functions #> line (replace the "# --- insert functions here ---" line).
+   
+   This function will fetch all user or computer accounts from AD.  Then we can filter them based on whatever criteria is needed.
+
+5. Copy and paste the function **Move-AdsAccountOU** just below the previous function in your script file.
+
+   This function will move an AD account to a specified OU.
+
+6. Copy and paste the function **Disable-AdsAccount** just below the previous function.
+
+   This function will disable a specified AD account.
+
+7. Copy and paste the function **Update-AdsAccountDescription** just below the previous function.
+
+   Thsi function will modify the description attribute of an AD account object.
+
+8. Copy and paste the function **Write-LogFile** just below the previous function.
+
+   This function will write information to a specified log file.
+
+### Script File Contents
+
+At this point, your script file should contain the following code (summarized):
+
 ```
-Note: Each line of the code above will be explained during a live session.
+[CmdletBinding(SupportsShouldProcess=$True)]
+param (
+    [string] $ou = "OU=Graveyard,DC=contoso,DC=local",
+    [string] $logfile = "adcleanup.log",
+    [int] $maxage = 90
+)
 
-**4. Test the code:**
+<# functions #>
+function Get-AdsAccounts {...}
+function Move-AdsAccountOU {...}
+function Disable-AdsAccount {...}
+function Update-AdsAccountDescription {...}
+function Write-LogFile {...}
 
-Press F5 to run the script.  Nothing happens.  This is because the function is simply loaded into memory, rather than executed.  You will need to explicitly invoke the function to make it do something...
-
-```powershell
-Get-AdsAccounts -AccountType user
-```
-Review the output and notice the property names and values that are returned.  The _LogonAge_ value indicates the number of days since the _LastLogon_ value occurred.
-
-**5. Repeat the function call, but...**
-
-This time, append the following filter before you execute it...**
-
-```powershell
-Get-AdsAccounts -AccountType user | ?{$_.LogonAge -gt 30}
-```
-You may need to play around with the number (30) if you don't have any accounts that haven't authenticated for that many days.  Once you get some results, you should see how this adds to your building blocks to make this project successful.  Save one of the accounts to a variable, so we can use that for testing the following steps more easily.
-
-```powershell
-$x = Get-AdsAccounts -AccountType user | ?{$_.LogonAge -gt 30}
-$test = $x[0]
-```
-Now ```$test``` holds a reference to the first account in the dataset.  If you type $test and press Enter, you should see the properties displayed: Name, Type, LastLogon, LogonAge, and DN.
-
-**6. Moving an account to a different OU**
-
-```powershell
-TBD
+<# workflow #>
 ```
 
-**7. Disable an account**
+9. Just below item 1. in the ```<# workflow #>``` section of the script, make the following change:
 
 ```powershell
-TBD
+<# workflow #>
+$comps = Get-AdsAccounts -AccountType computer | Where {$_.LogonAge -gt 30}
 ```
+Save and run the script (press **CTRL+S**, then press **F5**).  Check the contents of **$comps**.  Adjust the age number from 30 if needed and re-run until you get proper results.
 
-**8. Modify an account description**
-
-```powershell
-TBD
-```
-
-**9. Update a log file**
+10. Just below the $comps = line, make the following change to insert a 
 
 ```powershell
-function Write-LogFile {
-    param (
-        [parameter(Mandatory=$False)]
-            [string] $FilePath = (Join-Path -Path $env:USERPROFILE -ChildPath "Documents"),
-        [parameter(Mandatory=$False)]
-            [string] $LogName = "adcleanup.log",
-        [parameter(Mandatory=$True)]
-            [ValidateSet('computer','user')]
-            [string] $AccountType,
-        [parameter(Mandatory=$True)]
-            [ValidateNotNullOrEmpty()]
-            [string] $AccountName,
-        [parameter(Mandatory=$True)]
-            [ValidateNotNullOrEmpty()]
-            [string] $Message,
-        [parameter(Mandatory=$False)]
-            [string] $Delimiter = ","
-    )
-    try {
-        $LogPath = Join-Path -Path $FilePath -ChildPath $LogName
-        $Entry = @(
-            (Get-Date).ToShortDateString(),
-            (Get-Date).ToLongTimeString(),
-            "RunAs=$($env:USERNAME)",
-            $AccountType,
-            $AccountName,
-            $Message
-        )
-        $Entry -join $Delimiter | Out-File -FilePath $LogPath -Append
-    }
-    catch {
-        Write-Error $Error[0].Exception.Message
-    }
+<# workflow #>
+$comps = Get-AdsAccounts -AccountType computer | Where {$_.LogonAge -gt 30}
+foreach ($comp in $comps) {
+  # leave a blank line here
 }
 ```
 
-**10. Putting it all together**
+11. Inside the foreach section, replace ```# leave a blank line``` with the following...
 
 ```powershell
-TBD
+foreach ($comp in $comps) {
+  Disable-AdsAccount -AccountDN $comp.DN
+}
 ```
 
-## Summary
+12. Just below the Disable-AdsAccount line, insert the following...
 
-xxxx
+```powershell
+foreach ($comp in $comps) {
+  Disable-AdsAccount -AccountDN $comp.DN
+  Update-AdsAccountDescription -AccountDN $comp.DN
+}
+```
+
+13. Just below the Update-AdsAccountDescription line, insert the following...
+
+```powershell
+foreach ($comp in $comps) {
+  Disable-AdsAccount -AccountDN $comp.DN
+  Update-AdsAccountDescription -AccountDN $comp.DN -Description "disabled $(Get-Date) by $($env:USERNAME)"
+  Move-AdsAccountOU -AccountDN $comp.DN -TargetOU $ou
+}
+```
