@@ -103,7 +103,40 @@ TBD
 **9. Update a log file**
 
 ```powershell
-TBD
+function Write-LogFile {
+    param (
+        [parameter(Mandatory=$False)]
+            [string] $FilePath = (Join-Path -Path $env:USERPROFILE -ChildPath "Documents"),
+        [parameter(Mandatory=$False)]
+            [string] $LogName = "adcleanup.log",
+        [parameter(Mandatory=$True)]
+            [ValidateSet('computer','user')]
+            [string] $AccountType,
+        [parameter(Mandatory=$True)]
+            [ValidateNotNullOrEmpty()]
+            [string] $AccountName,
+        [parameter(Mandatory=$True)]
+            [ValidateNotNullOrEmpty()]
+            [string] $Message,
+        [parameter(Mandatory=$False)]
+            [string] $Delimiter = ","
+    )
+    try {
+        $LogPath = Join-Path -Path $FilePath -ChildPath $LogName
+        $Entry = @(
+            (Get-Date).ToShortDateString(),
+            (Get-Date).ToLongTimeString(),
+            "RunAs=$($env:USERNAME)",
+            $AccountType,
+            $AccountName,
+            $Message
+        )
+        $Entry -join $Delimiter | Out-File -FilePath $LogPath -Append
+    }
+    catch {
+        Write-Error $Error[0].Exception.Message
+    }
+}
 ```
 
 **10. Putting it all together**
