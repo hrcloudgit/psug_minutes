@@ -4,7 +4,7 @@ This is pseudo-code, provided as a general roadmap or outline of the steps requi
 
 ```
 1. Get all accounts where LastLogon > 90 days
-2. Foreach account:
+2. Foreach account:**
    * Move account to the "graveyard" OU
    * Disable the account
    * Modify the account description
@@ -15,9 +15,9 @@ This is pseudo-code, provided as a general roadmap or outline of the steps requi
 
 For this exercise, functions will be used to group code into reusable units, with a central "control script" that will invoke the functions, to complete the tasks in the order above.  All of the following functions can be entered and saved into a single file.
 
-1. Open PowerShell ISE or Visual Studio Code
-2. Create a new File and save it as **Invoke-ADCleanup.ps1**
-3. Enter the following code into the file and save it.  
+**1. Open PowerShell ISE or Visual Studio Code**
+**2. Create a new File and save it as **Invoke-ADCleanup.ps1**
+**3. Enter the following code into the file and save it.**
 
 ```powershell
 function Get-AdsAccounts {
@@ -56,29 +56,38 @@ function Get-AdsAccounts {
 ```
 Note: Each line of the code above will be explained during a live session.
 
-4. Test the code:
+**4. Test the code:**
 
 Press F5 to run the script.  Nothing happens.  This is because the function is simply loaded into memory, rather than executed.  You will need to explicitly invoke the function to make it do something...
 
 ```powershell
-Get-AdsAccounts -AccountType computers
+Get-AdsAccounts -AccountType user
 ```
 Review the output and notice the property names and values that are returned.  The _LogonAge_ value indicates the number of days since the _LastLogon_ value occurred.
 
-5. Repeat the function call, but append the following filter before you execute it...
+**5. Repeat the function call, but append the following filter before you execute it...**
 
 ```powershell
-Get-AdsAccounts -AccountType computers | ?{$_.LogonAge -gt 30}
+Get-AdsAccounts -AccountType user | ?{$_.LogonAge -gt 30}
 ```
-You may need to play around with the number (30) if you don't have any computers that haven't authenticated for that many days.  Once you get some results, you should see how this adds to your building blocks to make this project successful.
+You may need to play around with the number (30) if you don't have any accounts that haven't authenticated for that many days.  Once you get some results, you should see how this adds to your building blocks to make this project successful.  Save one of the accounts to a variable, so we can use that for testing the following steps more easily.
 
-6. Moving an account to a different OU
+```powershell
+$x = Get-AdsAccounts -AccountType user | ?{$_.LogonAge -gt 30}
+$test = $x[0]
+```
+Now ```$test``` holds a reference to the first account in the dataset.  If you type $test and press Enter, you should see the properties displayed: Name, Type, LastLogon, LogonAge, and DN.
 
-7. Disable an account
+**6. Moving an account to a different OU**
 
-8. Modify an account description
+```powershell
+```
 
-9. Update a log file
+**7. Disable an account
+
+**8. Modify an account description
+
+**9. Update a log file
 
 ## Summary
 
