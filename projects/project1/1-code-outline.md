@@ -73,13 +73,13 @@ function Write-LogFile {...}
 <# workflow #>
 ```
 
-9. Just below item 1. in the ```<# workflow #>``` section of the script, make the following change:
+9. Just below the ```<# workflow #>``` section of the script, make the following change:
 
 ```powershell
 <# workflow #>
-$comps = Get-AdsAccounts -AccountType computer | Where {$_.LogonAge -gt 30}
+$comps = Get-AdsAccounts -AccountType computer | Where {$_.LogonAge -gt $maxage}
 ```
-Save and run the script (press **CTRL+S**, then press **F5**).  Check the contents of **$comps**.  Adjust the age number from 30 if needed and re-run until you get proper results.
+This will retrieve all computer accounts in AD which haven't authenticated within the last 30 days.  Save the script, and run it (press F5).  Check the contents of **$comps**.  Adjust $maxage if needed, and re-run until you get satisfactory results.
 
 10. Just below the $comps = line, make the following change to insert a 
 
@@ -91,7 +91,7 @@ foreach ($comp in $comps) {
 }
 ```
 
-11. Inside the foreach section, replace ```# leave a blank line``` with the following...
+11. Inside the foreach() section, replace ```# leave a blank line``` with the following...
 
 ```powershell
 foreach ($comp in $comps) {
@@ -117,3 +117,16 @@ foreach ($comp in $comps) {
   Move-AdsAccountOU -AccountDN $comp.DN -TargetOU $ou
 }
 ```
+
+14. Just below the Move-AdsAccountOU line, insert the following change...
+
+```powershell
+foreach ($comp in $comps) {
+  Disable-AdsAccount -AccountDN $comp.DN
+  Update-AdsAccountDescription -AccountDN $comp.DN -Description "disabled $(Get-Date) by $($env:USERNAME)"
+  Move-AdsAccountOU -AccountDN $comp.DN -TargetOU $ou
+  Write-LogFile
+}
+```
+
+15. 
