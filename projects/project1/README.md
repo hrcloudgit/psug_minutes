@@ -29,3 +29,9 @@
 * Potential roadmap:
   * Make into a PowerShell module
   * Schedule to run daily
+
+## What you will need
+
+* An Active Directory domain in a test environment
+* A user account with permissions in the domain to modify user and computer accounts
+* A Windows 10 or Windows Server 2016 computer joined to the domain (for script build/test)
