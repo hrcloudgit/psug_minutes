@@ -38,10 +38,12 @@ function Get-AdsAccounts {
             $dn   = ($account.Properties.item('distinguishedName') | Out-String).Trim()
             $lts  = ($account.Properties.item('lastLogonTimeStamp') | Out-String).Trim()
             $lts  = ([datetime]::FromFileTime($lts))
+            $age  = (New-TimeSpan -Start (Get-Date $lts) -End (Get-Date)).Days
             $params = [ordered]@{
                 Name      = $name
                 Type      = $AccountType
                 LastLogon = $lts
+                LogonAge  = $age
                 DN        = $dn
             }
             New-Object PSObject -Property $params
@@ -52,6 +54,8 @@ function Get-AdsAccounts {
     }
 }
 ```
+Note: Each line of the code above will be explained during a live session.
+
 4. Test the code:
 
 Press F5 to run the script.  Nothing happens.  This is because the function is simply loaded into memory, rather than executed.  You will need to explicitly invoke the function to make it do something...
@@ -59,3 +63,23 @@ Press F5 to run the script.  Nothing happens.  This is because the function is s
 ```powershell
 Get-AdsAccounts -AccountType computers
 ```
+Review the output and notice the property names and values that are returned.  The _LogonAge_ value indicates the number of days since the _LastLogon_ value occurred.
+
+5. Repeat the function call, but append the following filter before you execute it...
+
+```powershell
+Get-AdsAccounts -AccountType computers | ?{$_.LogonAge -gt 30}
+```
+You may need to play around with the number (30) if you don't have any computers that haven't authenticated for that many days.  Once you get some results, you should see how this adds to your building blocks to make this project successful.
+
+6. Moving an account to a different OU
+
+7. Disable an account
+
+8. Modify an account description
+
+9. Update a log file
+
+## Summary
+
+xxxx
