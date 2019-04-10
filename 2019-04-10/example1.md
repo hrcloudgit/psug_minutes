@@ -35,4 +35,4 @@
 
  * Create several .sql files in a common folder
  * Import the list using Get-ChildItem, pipe to Out-GridView for user selection
- * PLACEHOLDER FOR CODE EXAMPLES
+ * ```PLACEHOLDER FOR CODE EXAMPLES```
