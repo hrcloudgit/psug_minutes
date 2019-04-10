@@ -22,8 +22,11 @@
         }
       }
     ```
-  * Notes:
-    * [ordered] vs. not ordered hash tables
+  * Iterate user accounts to check [mail] attribute values against HaveIBeenPwned database (fun!)
+  * PLACEHOLDER FOR CODE EXAMPLES
+  
+## Notes:
+  * Discuss [ordered] vs. not-ordered hash tables
   * Review Module: 
     * PSGallery page
     * GitHub repo
