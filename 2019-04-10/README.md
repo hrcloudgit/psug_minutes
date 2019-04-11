@@ -14,6 +14,7 @@
 
   * DbaTools - ```Find-Module dbatools```
   * AdsiPS - ```Find-Module adsips```
+    * https://www.powershellgallery.com/packages/AdsiPS/1.0.0.3
   * HaveIBeenPwned - ```Find-Module HaveIBeenPwned```
   * Get-PwnedUsers - https://github.com/Skatterbrainz/Intune/blob/master/Get-PwnedUsers.ps1
   * Get-CmQueryData - https://github.com/Skatterbrainz/sccm/blob/master/demo/Get-CmQueryData.ps1
